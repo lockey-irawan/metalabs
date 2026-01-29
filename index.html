@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetaLabs - Ma Chung University</title>
+    <title>Metalabs</title>
+    
+    <link rel="icon" type="image/png" href="logom.png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -132,7 +134,7 @@
                 <!-- Logo -->
                 <a href="#" onclick="showLandingPage()" class="flex-shrink-0 flex items-center gap-3 hover:opacity-90 transition-opacity">
                     <div class="w-10 h-10 bg-meta-accent rounded-lg flex items-center justify-center text-meta-dark font-bold text-xl">
-                        M
+                        <img src="logo.png" alt="MetaLabs Logo">
                     </div>
                     <div class="flex flex-col">
                         <span class="font-bold text-xl tracking-wider">METALABS</span>
@@ -278,7 +280,7 @@
         <section id="about" class="py-20 bg-meta-light">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">About Meta Labs</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">About MetaLabs</h2>
                     <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A center for research excellence in the Informatics Study Program, Ma Chung University.</p>
                 </div>
 
@@ -878,6 +880,53 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Product 7: VR Gedung Bhakti Persada -->
+                <div class="bg-meta-dark border border-white/10 rounded-2xl overflow-hidden mb-8 shadow-xl hover:shadow-meta-accent/10 transition-all duration-500 max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-5">
+                        <div class="relative bg-black/50 h-56 lg:h-auto lg:col-span-2 group">
+                            <div class="carousel-container h-full w-full overflow-hidden relative" id="carousel-5">
+                                <div class="flex transition-transform duration-500 ease-in-out h-full" id="track-5">
+                                    <div class="min-w-full h-full relative">
+                                        <img src="Gedung Bakti Persada 1.png" class="w-full h-full object-cover opacity-90" alt="AI Coding 1">
+                                    </div>
+                                    <div class="min-w-full h-full relative">
+                                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-90" alt="AI Coding 2">
+                                    </div>
+                                </div>
+                                <button onclick="prevSlide(5)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white w-8 h-8 rounded-full backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"><i class="fas fa-chevron-left text-xs"></i></button>
+                                <button onclick="nextSlide(5)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white w-8 h-8 rounded-full backdrop-blur-sm flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"><i class="fas fa-chevron-right text-xs"></i></button>
+                            </div>
+                            <div class="absolute top-3 left-3 bg-meta-accent text-meta-dark text-[10px] font-bold px-2 py-0.5 rounded-full">Virtual Reality</div>
+                        </div>
+                        <div class="p-6 lg:p-8 flex flex-col justify-center lg:col-span-3">
+                            <h3 class="text-xl lg:text-2xl font-bold text-white mb-2">Virtual Reality in Bhakti Persada</h3>
+                            <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                                Experience Bhakti Perasada Interior in Ma Chung University through an immersive Virtual Reality tour. Explore campus facilities and environment from anywhere in the world.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 mb-6 border-t border-white/10 pt-4">
+                                <div>
+                                    <p class="text-[10px] text-meta-accent uppercase font-bold tracking-wider mb-0.5">Developed By</p>
+                                    <p class="text-white text-xs leading-snug">Benedict Chilwin Punarto</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-meta-accent uppercase font-bold tracking-wider mb-0.5">Supervisors</p>
+                                    <p class="text-white text-xs leading-snug">Paulus Lucky Tirma Irawan</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <a href="https://youtu.be/-BoiwyiJ0_4" target="_blank" class="px-5 py-2 bg-meta-accent text-meta-dark font-bold text-sm rounded-md hover:bg-white transition-all inline-flex items-center gap-2">
+                                    <i class="fas fa-mobile-alt text-xs"></i> Demo Video
+                                </a>
+                            </div>
+                            <!-- <div class="flex items-center gap-3">
+                                <a href="#" class="px-5 py-2 bg-meta-accent text-meta-dark font-bold text-sm rounded-md hover:bg-white transition-all inline-flex items-center gap-2">
+                                    <i class="fas fa-code text-xs"></i> Read Paper
+                                </a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>                
 
              </div>
         </section>

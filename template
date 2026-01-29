@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Labs - Ma Chung University</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        meta: {
+                            dark: '#021e47',   // Primary Dark Blue
+                            light: '#f3f6fc',  // Background Light
+                            accent: '#8ecae6', // Accent Light Blue
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Utilities */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f3f6fc;
+            color: #021e47;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(2, 30, 71, 0.1);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background-color: #8ecae6;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        /* Mobile Menu Animation */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out;
+            overflow: hidden;
+            max-height: 0;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+        }
+
+        /* Utility to hide/show pages */
+        .hidden-page {
+            display: none;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="bg-meta-dark text-white fixed w-full z-50 shadow-lg transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" onclick="showLandingPage()" class="flex-shrink-0 flex items-center hover:opacity-90 transition-opacity">
+                    <img src="logo.png" alt="MetaLabs Logo" class="h-14 w-auto object-contain rounded-full bg-white/5 p-1">
+                </a>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" onclick="navigateToSection('home')" class="hover:text-meta-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#about" onclick="navigateToSection('about')" class="hover:text-meta-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">About</a>
+                        <a href="#team" onclick="navigateToSection('team')" class="hover:text-meta-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Team</a>
+                        <a href="#research" onclick="navigateToSection('research')" class="hover:text-meta-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Research</a>
+                        <a href="#students" onclick="navigateToSection('students')" class="hover:text-meta-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Students</a>
+                        <a href="#contact" onclick="navigateToSection('contact')" class="bg-meta-accent text-meta-dark hover:bg-white px-4 py-2 rounded-md text-sm font-bold transition-all transform hover:scale-105">Contact Us</a>
+                    </div>
+                </div>
+
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-meta-accent hover:text-white hover:bg-white/10 focus:outline-none">
+                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:hidden bg-meta-dark border-t border-white/10" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" onclick="navigateToSection('home')" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-meta-accent hover:bg-white/5">Home</a>
+                <a href="#about" onclick="navigateToSection('about')" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-meta-accent hover:bg-white/5">About</a>
+                <a href="#team" onclick="navigateToSection('team')" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-meta-accent hover:bg-white/5">Team</a>
+                <a href="#research" onclick="navigateToSection('research')" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-meta-accent hover:bg-white/5">Research</a>
+                <a href="#students" onclick="navigateToSection('students')" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-meta-accent hover:bg-white/5">Students</a>
+                <a href="#contact" onclick="navigateToSection('contact')" class="block px-3 py-2 rounded-md text-base font-medium text-meta-accent font-bold">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="landing-page">
+        <section id="home" class="relative pt-20 pb-16 md:pt-32 md:pb-24 flex items-center min-h-screen bg-meta-dark overflow-hidden">
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-meta-accent opacity-10 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-600 opacity-10 blur-3xl"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="text-left space-y-6">
+                        <div class="inline-block px-4 py-1 rounded-full bg-white/10 text-meta-accent text-sm font-semibold mb-2 border border-white/20">
+                            Informatics Research Laboratory
+                        </div>
+                        <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
+                            Innovating the Future of <span class="text-meta-accent">Technology</span>
+                        </h1>
+                        <p class="text-lg text-gray-300 leading-relaxed max-w-lg">
+                            Meta Labs at Ma Chung University is dedicated to cutting-edge research in <strong>Immersive Technology (AR, VR, XR)</strong>, <strong>Artificial Intelligence</strong>, and <strong>Software Development</strong>.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                            <a href="#research" class="px-8 py-3 bg-meta-accent text-meta-dark font-bold rounded-lg shadow-lg hover:bg-white hover:scale-105 transition-all text-center">
+                                View Research
+                            </a>
+                            <a href="#about" class="px-8 py-3 border border-meta-accent text-meta-accent font-semibold rounded-lg hover:bg-meta-accent hover:text-meta-dark transition-all text-center">
+                                About Us
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative hidden md:block">
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-white/5 p-2">
+                            <div class="bg-gradient-to-br from-gray-800 to-gray-900 w-full h-80 rounded-xl flex items-center justify-center relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1622979135225-d2ba269fb1ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')] bg-cover bg-center opacity-60 group-hover:scale-110 transition-transform duration-700"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-meta-dark to-transparent"></div>
+                                <div class="relative z-10 text-center p-6">
+                                    <i class="fas fa-vr-cardboard text-6xl text-meta-accent mb-4 animate-pulse"></i>
+                                    <p class="text-white font-mono text-sm">Status: Immersive<br>Mode: XR_Enabled</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-20 bg-meta-light">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">About Meta Labs</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">A center for research excellence in the Informatics Study Program, Ma Chung University.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="glass-card p-8 rounded-xl bg-white text-center">
+                        <div class="w-16 h-16 bg-meta-dark/10 rounded-full flex items-center justify-center mx-auto mb-6 text-meta-dark">
+                            <i class="fas fa-microscope text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-meta-dark mb-3">Our Vision</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            To become a leading research laboratory that produces adaptive and solution-oriented technological innovations for industrial and societal challenges.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-xl bg-white text-center border-b-4 border-meta-accent">
+                        <div class="w-16 h-16 bg-meta-accent/20 rounded-full flex items-center justify-center mx-auto mb-6 text-meta-dark">
+                            <i class="fas fa-cubes text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-meta-dark mb-3">Focus Areas</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            We focus on <strong>Immersive Technology</strong> (Augmented Reality, Virtual Reality, Extended Reality), <strong>Artificial Intelligence</strong>, and <strong>Software Development</strong>.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-8 rounded-xl bg-white text-center">
+                        <div class="w-16 h-16 bg-meta-dark/10 rounded-full flex items-center justify-center mx-auto mb-6 text-meta-dark">
+                            <i class="fas fa-graduation-cap text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-meta-dark mb-3">Collaboration</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Facilitating collaboration between lecturers and students in creating high-quality scientific publications and appropriate technological products.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">Research Team</h2>
+                    <p class="text-gray-600 mt-4">Experts and lecturers dedicated to technological advancement.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                        <div class="aspect-w-3 aspect-h-4 bg-gray-200 h-96 relative">
+                            <div class="w-full h-full bg-meta-dark flex items-center justify-center">
+                                <i class="fas fa-user-tie text-6xl text-meta-accent"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-meta-dark via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <h3 class="text-lg font-bold leading-tight mb-1">Paulus Lucky Tirma Irawan, S.Kom., MT.</h3>
+                                <p class="text-meta-accent text-sm font-medium mb-2">Head of Study Center</p>
+                                <div class="w-12 h-1 bg-meta-accent mb-4"></div>
+                                <p class="text-xs text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                                    Specialization: Software Engineering, Web Technologies.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                        <div class="aspect-w-3 aspect-h-4 bg-gray-200 h-96 relative">
+                            <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-user-graduate text-6xl text-gray-500"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-meta-dark via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <h3 class="text-lg font-bold leading-tight mb-1">Windra Swastika, Ph.D.</h3>
+                                <p class="text-meta-accent text-sm font-medium mb-2">Senior Researcher</p>
+                                <div class="w-12 h-1 bg-meta-accent mb-4"></div>
+                                <p class="text-xs text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                                    Specialization: Artificial Intelligence, Deep Learning & Computer Vision.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer">
+                        <div class="aspect-w-3 aspect-h-4 bg-gray-200 h-96 relative">
+                            <div class="w-full h-full bg-gray-300 flex items-center justify-center">
+                                <i class="fas fa-user text-6xl text-gray-500"></i>
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-meta-dark via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <h3 class="text-lg font-bold leading-tight mb-1">Bita Parga Zen, S.Kom., M.Han.</h3>
+                                <p class="text-meta-accent text-sm font-medium mb-2">Study Center Member</p>
+                                <div class="w-12 h-1 bg-meta-accent mb-4"></div>
+                                <p class="text-xs text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
+                                    Specialization: Cybersecurity, Network Defense & Strategic Analysis.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research" class="py-20 bg-meta-light">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="mb-20">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">Featured Research</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-meta-dark hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-blue-100 p-3 rounded-full text-meta-dark">
+                                    <i class="fas fa-vr-cardboard"></i>
+                                </div>
+                                <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded">Published</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-meta-dark mb-2">Virtual Reality: VR Tour</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Development of a Virtual Reality Tour application for immersive campus exploration.</p>
+                            <a href="https://jurnal.untan.ac.id/index.php/jepin/article/view/90822/75676606626" target="_blank" class="text-meta-dark font-semibold text-sm hover:text-meta-accent flex items-center gap-2">
+                                View Publication <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-meta-accent hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-blue-100 p-3 rounded-full text-meta-dark">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Submitted</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-meta-dark mb-2">AI: Chair Damage Detection</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Real-Time Chair Damage Detection Using YOLO algorithm for efficient facility management.</p>
+                            <span class="text-gray-400 text-xs italic">Ongoing Research</span>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-meta-dark hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="bg-blue-100 p-3 rounded-full text-meta-dark">
+                                    <i class="fas fa-map-marked-alt"></i>
+                                </div>
+                                <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded">Submitted</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-meta-dark mb-2">AR Navigation</h3>
+                            <p class="text-gray-600 mb-4 text-sm">Augmented Reality Navigation system designed to help users navigate complex indoor environments.</p>
+                            <span class="text-gray-400 text-xs italic">Ongoing Research</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-meta-dark text-white rounded-2xl p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                        <h3 class="text-2xl font-bold border-b-2 border-meta-accent pb-2">Recent Publications</h3>
+                        <button onclick="showPublications()" class="mt-4 md:mt-0 px-4 py-2 border border-white rounded-full text-sm hover:bg-white hover:text-meta-dark transition-colors">
+                            View All Publications
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4 items-start">
+                            <div class="min-w-[40px] mt-1 text-meta-accent"><i class="fas fa-file-alt text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Virtual Reality: VR Tour</h4>
+                                <p class="text-gray-300 text-sm mt-1">Jurnal JEPIN (Sinta 3), 2024.</p>
+                                <p class="text-meta-accent text-xs mt-1">Authors: Paulus Lucky Tirma Irawan</p>
+                                <a href="https://jurnal.untan.ac.id/index.php/jepin/article/view/90822/75676606626" target="_blank" class="text-xs text-white underline hover:text-meta-accent mt-2 block">Read Paper</a>
+                            </div>
+                        </div>
+                        <hr class="border-white/10">
+                        <div class="flex gap-4 items-start">
+                            <div class="min-w-[40px] mt-1 text-meta-accent"><i class="fas fa-file-alt text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">Generative AI: Auto Feedback for Coding Learning</h4>
+                                <p class="text-gray-300 text-sm mt-1">Jurnal Sinta 2-3 (Submitted).</p>
+                                <p class="text-meta-accent text-xs mt-1">Authors: Paulus Lucky Tirma Irawan</p>
+                            </div>
+                        </div>
+                        <hr class="border-white/10">
+                        <div class="flex gap-4 items-start">
+                            <div class="min-w-[40px] mt-1 text-meta-accent"><i class="fas fa-file-alt text-xl"></i></div>
+                            <div>
+                                <h4 class="font-bold text-lg">AI: Capilaroscopy Classification (YOLO)</h4>
+                                <p class="text-gray-300 text-sm mt-1">Jurnal Scopus 1-2 (Submitted), 2025.</p>
+                                <p class="text-meta-accent text-xs mt-1">Collaboration Research</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="students" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">Students & Interns</h2>
+                    <p class="text-gray-600 mt-4">Talented students who have contributed to our research.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 justify-center">
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-accent">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Benedict" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Benedict Chilwin Punarto</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">Virtual Reality</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+                    
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-dark">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Cevin" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Cevin Albert Yonathan</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">Augmented Reality</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-accent">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Abednego" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Abednego Indra Saputra</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">Artificial Intelligence</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-dark">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Michael" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Michael Christopher Otniel Wijanto</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">Software Engineering</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-accent">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bernardus" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Bernardus Reynaldi Ananda Priasmara</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">Internet of Things</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-dark">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Fikry" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Fikry Catur Farenza</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">Web Development</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+
+                    <div class="text-center p-6 bg-gray-50 rounded-xl hover:shadow-lg transition-all">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden border-2 border-meta-accent">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Siusiu" alt="Student" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="font-bold text-meta-dark text-sm sm:text-base">Siusiu Trifena Halim</h4>
+                        <p class="text-xs text-meta-accent mt-1 font-semibold">UI/UX Design</p>
+                        <p class="text-[10px] sm:text-xs text-gray-500 mt-1">Research Intern</p>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="#contact" class="inline-flex items-center text-meta-dark hover:text-meta-accent font-semibold transition-colors">
+                        Join as a research assistant <i class="fas fa-chevron-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-meta-light">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-meta-dark section-title">Frequently Asked Questions (FAQ)</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <details class="group bg-white rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-6 text-meta-dark font-semibold hover:bg-gray-50 transition-colors">
+                            <h3 class="text-lg">How do I join as a research assistant at Meta Labs?</h3>
+                            <div class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                            Ma Chung Informatics Engineering students in their 4th semester or above can apply by submitting their CV and academic transcript when the recruitment period opens (usually at the beginning of the semester).
+                        </div>
+                    </details>
+
+                    <details class="group bg-white rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-6 text-meta-dark font-semibold hover:bg-gray-50 transition-colors">
+                            <h3 class="text-lg">Does Meta Labs facilitate thesis topics?</h3>
+                            <div class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                            Yes, we provide various umbrella research topics that students can take for their thesis, especially in the fields of AI and IoT.
+                        </div>
+                    </details>
+
+                    <details class="group bg-white rounded-lg shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                        <summary class="flex cursor-pointer items-center justify-between gap-1.5 rounded-lg p-6 text-meta-dark font-semibold hover:bg-gray-50 transition-colors">
+                            <h3 class="text-lg">Is research here paid or funded?</h3>
+                            <div class="shrink-0 transition duration-300 group-open:-rotate-180">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </summary>
+                        <div class="px-6 pb-6 text-gray-600 leading-relaxed">
+                            Most research is funded by internal university grants or external grants (Dikti). Students involved in funded projects have the opportunity to receive incentives.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="publications-page" class="hidden-page pt-28 pb-20 min-h-screen bg-meta-light">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-8">
+                <div>
+                    <button onclick="showLandingPage()" class="flex items-center text-meta-dark hover:text-meta-accent font-semibold transition-colors mb-2">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Home
+                    </button>
+                    <h1 class="text-4xl font-bold text-meta-dark">All Research Publications</h1>
+                </div>
+                <div class="hidden md:block">
+                    <span class="bg-meta-dark text-white text-xs px-3 py-1 rounded-full">Total: 7 Papers</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-yellow-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Submitted</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">AI: Capilaroscopy Classification (YOLO)</h3>
+                            <p class="text-gray-600 mt-2 text-sm">Classification of capillary patterns for early disease detection using You Only Look Once (YOLO) architecture.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Collaboration Research • 2025 (Expected)</p>
+                        </div>
+                        <i class="fas fa-file-contract text-gray-300 text-2xl"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-green-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Journal Article</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">Virtual Reality: VR Tour of Ma Chung University</h3>
+                            <p class="text-gray-600 mt-2 text-sm">A comprehensive study on user experience in virtual campus tours developed using Unity engine.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Paulus Lucky Tirma Irawan • Jurnal JEPIN (Sinta 3) • 2024</p>
+                        </div>
+                        <a href="https://jurnal.untan.ac.id/index.php/jepin/article/view/90822/75676606626" target="_blank" class="text-meta-accent hover:text-meta-dark">
+                            <i class="fas fa-external-link-alt text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-yellow-500">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Submitted</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">Generative AI: Automated Feedback Generation for Coding Education</h3>
+                            <p class="text-gray-600 mt-2 text-sm">Utilizing Large Language Models (LLMs) to provide real-time, constructive feedback for novice programmers.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Paulus Lucky Tirma Irawan • Jurnal Sinta 2-3</p>
+                        </div>
+                        <i class="fas fa-file-contract text-gray-300 text-2xl"></i>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-meta-dark">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Conference Paper</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">IoT Based Smart Farming System with LoRaWAN</h3>
+                            <p class="text-gray-600 mt-2 text-sm">Implementation of long-range low-power sensor networks for soil moisture monitoring in Malang regency.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Team Meta Labs • Seminar Nasional Teknologi Komputer • 2023</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <i class="fas fa-microchip text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-meta-dark">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Journal Article</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">Analysis of Network Security Patterns in Academic Systems</h3>
+                            <p class="text-gray-600 mt-2 text-sm">A study on common vulnerability exposures in academic information systems and mitigation strategies.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Bita Parga Zen • Jurnal Keamanan Siber • 2023</p>
+                        </div>
+                         <div class="text-gray-300">
+                            <i class="fas fa-shield-alt text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-meta-dark">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Journal Article</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">Mobile Augmented Reality for Museum Guide</h3>
+                            <p class="text-gray-600 mt-2 text-sm">Enhancing visitor engagement in historical museums through interactive AR markers on mobile devices.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Paulus Lucky Tirma Irawan • Jurnal Teknologi Informasi • 2022</p>
+                        </div>
+                         <div class="text-gray-300">
+                            <i class="fas fa-mobile-alt text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 border-l-4 border-meta-dark">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wide">Conference Paper</span>
+                            <h3 class="text-xl font-bold text-meta-dark mt-1">Blockchain for Academic Certificate Validation</h3>
+                            <p class="text-gray-600 mt-2 text-sm">Prototyping a decentralized ledger system to prevent diploma forgery in higher education institutions.</p>
+                            <p class="text-meta-accent text-xs mt-3 font-semibold">Student Team & Windra Swastika • International Conference on CS • 2022</p>
+                        </div>
+                         <div class="text-gray-300">
+                            <i class="fas fa-link text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+             <div class="mt-12 text-center">
+                <p class="text-gray-500 text-sm">Showing all 7 publications from 2022-2025</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact" class="bg-meta-dark text-white pt-20 pb-10 border-t border-meta-accent/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 lg:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="logo.png" alt="MetaLabs Logo" class="h-12 w-auto object-contain rounded-full bg-white/5 p-1">
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed max-w-sm">
+                        Research Laboratory of Informatics Study Program, Ma Chung University. Driving innovation through collaboration and technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-meta-accent hover:text-meta-dark transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-meta-accent hover:text-meta-dark transition-all">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-meta-accent hover:text-meta-dark transition-all">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-span-1">
+                    <h4 class="text-lg font-bold text-meta-accent mb-6">Contact Us</h4>
+                    <ul class="space-y-4 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-envelope mt-1 text-meta-accent"></i>
+                            <a href="mailto:paulus.lucky@machung.ac.id" class="hover:text-white transition-colors">
+                                paulus.lucky@machung.ac.id
+                            </a>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1 text-meta-accent"></i>
+                            <span>
+                                Ma Chung University<br>
+                                Villa Puncak Tidar N-01,<br>
+                                Malang, East Java
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-span-1">
+                    <h4 class="text-lg font-bold text-meta-accent mb-6">Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://machung.ac.id" target="_blank" class="hover:text-white transition-colors">Ma Chung University</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Informatics Department</a></li>
+                        <li><a href="#" onclick="showPublications(); return false;" class="hover:text-white transition-colors">Publications</a></li>
+                        <li><a href="#team" onclick="navigateToSection('team')" class="hover:text-white transition-colors">Research Team</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
+                <p>&copy; 2024 Meta Labs - Ma Chung University. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Designed for Research Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const landingPage = document.getElementById('landing-page');
+        const publicationsPage = document.getElementById('publications-page');
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Toggle Mobile Menu
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+            } else {
+                mobileMenu.style.maxHeight = null;
+            }
+        });
+
+        // Close mobile menu helper
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenu.style.maxHeight = null;
+        }
+
+        // Navigation Logic
+        function showPublications() {
+            landingPage.style.display = 'none';
+            publicationsPage.style.display = 'block';
+            window.scrollTo(0, 0);
+            closeMobileMenu();
+        }
+
+        function showLandingPage() {
+            publicationsPage.style.display = 'none';
+            landingPage.style.display = 'block';
+            window.scrollTo(0, 0);
+            closeMobileMenu();
+        }
+
+        function navigateToSection(sectionId) {
+            // Ensure we are on landing page
+            if (publicationsPage.style.display === 'block') {
+                showLandingPage();
+                // Allow DOM to update then scroll
+                setTimeout(() => {
+                    const element = document.getElementById(sectionId);
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                // Already on landing page, just scroll normal anchor behavior or force it
+                const element = document.getElementById(sectionId);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+                closeMobileMenu();
+            }
+        }
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-xl');
+                navbar.classList.replace('bg-meta-dark', 'bg-[#011533]'); 
+            } else {
+                navbar.classList.remove('shadow-xl');
+                navbar.classList.replace('bg-[#011533]', 'bg-meta-dark');
+            }
+        });
+    </script>
+</body>
+</html>
